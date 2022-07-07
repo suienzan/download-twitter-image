@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <style>
+    .flex {
+      display: flex;
+    }
+    .flex-grow {
+      flex-grow: 1;
+    }
+    .ml-2 {
+      margin-left: 0.5rem;
+    }
+    .p-4 {
+      padding: 1rem;
+    }
+    .items-center {
+      align-items: center;
+    }
+  </style>
+  <body>
+    <form>
+      <div class="browser-style p-4 flex items-center">
+        <label for="filename">filename:</label>
+        <input id="filename" name="filename" class="flex-grow ml-2" value="" />
+        <button type="submit" class="ml-2">Save</button>
+      </div>
+    </form>
+    <div>
+      <div>availiable variables</div>
+      <ul>
+        <li>{name} : Users name.</li>
+        <li>{screen_name} : The one after '@' and in address bar.</li>
+        <li>{id} : Tweet id.</li>
+        <li>
+          {text[$number]} : Fisrt $number characters of tweet content. You will
+          get fisrt 28 characters with `{text[28]}`. USE `{text}` to get all.`
+        </li>
+        <li>
+          {[$pagePrefix]page} : Page number with prefix. With `{[ - ]page}`, you
+          will get a ' - 1' if there are multiple images. And get nothing if
+          there is only one image.
+        </li>
+      </ul>
+    </div>
+    <script src="options.global.js"></script>
+  </body>
+</html>
