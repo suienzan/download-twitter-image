@@ -8,8 +8,6 @@ const json = (
 
 const { version, displayName } = JSON.parse(json);
 
-const geckoId = 'download-twitter-image@suienzan';
-
 const file = fileURLToPath(
   new URL('../extension/manifest.json', import.meta.url),
 );
@@ -17,33 +15,28 @@ const file = fileURLToPath(
 const manifest = {
   name: displayName,
   version,
-  manifest_version: 2,
+  manifest_version: 3,
   permissions: [
     'cookies',
     'downloads',
-    'https://mobile.twitter.com/*',
-    'https://twitter.com/*',
-    'menus',
+    'contextMenus',
     'notifications',
     'storage',
   ],
+  host_permissions: ['https://mobile.twitter.com/*', 'https://twitter.com/*'],
   background: {
-    scripts: ['background.global.js'],
+    service_worker: 'background.global.js',
+    type: 'module',
   },
   content_scripts: [
     {
       matches: ['*://*/*'],
       js: ['content-script.global.js'],
+      type: 'module',
     },
   ],
   options_ui: {
     page: 'options.html',
-    browser_style: true,
-  },
-  applications: {
-    gecko: {
-      id: geckoId,
-    },
   },
 };
 

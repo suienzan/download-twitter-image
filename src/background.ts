@@ -1,6 +1,9 @@
 import { name, displayName } from '../package.json';
 
-browser.menus.create({
+// eslint-disable-next-line no-console
+console.log(0);
+
+chrome.contextMenus.create({
   id: name,
   title: displayName,
   documentUrlPatterns: [
@@ -11,15 +14,15 @@ browser.menus.create({
   targetUrlPatterns: ['https://pbs.twimg.com/media/*'],
 });
 
-browser.menus.onClicked.addListener(async (item, tab) => {
-  const { srcUrl } = item;
+chrome.contextMenus.onClicked.addListener(async (item, tab) => {
+  const { srcUrl, linkUrl, pageUrl } = item;
   if (!(srcUrl && tab?.id)) return;
 
   const regex = /https:\/\/(mobile.)?twitter.com\/(.*)\/status\/(\d*).*/;
-  const match = item.linkUrl?.match(regex);
+  const match = (linkUrl || pageUrl).match(regex);
   const [image, , screenName, id] = match || [];
 
-  browser.tabs.sendMessage(tab.id, {
+  chrome.tabs.sendMessage(tab.id, {
     image,
     screenName,
     id,
@@ -28,15 +31,27 @@ browser.menus.onClicked.addListener(async (item, tab) => {
 });
 
 const showNotification = (message: string) => {
-  browser.notifications.create({
+  chrome.notifications.create({
     type: 'basic',
     title: `ERROR in ${displayName}`,
     message,
+    iconUrl:
+      'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
   });
 };
 
-browser.runtime.onMessage.addListener((request) => {
-  browser.downloads.download(request).catch((err) => {
-    showNotification(err.message);
-  });
+chrome.runtime.onMessage.addListener(({ type, request, message }) => {
+  switch (type) {
+    case 'error':
+      showNotification(message);
+      break;
+    case 'download':
+      chrome.downloads.download(request).catch((err) => {
+        showNotification(err.message);
+      });
+      break;
+    default:
+      showNotification('Unknown error.');
+      break;
+  }
 });

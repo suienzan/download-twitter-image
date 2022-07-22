@@ -9,27 +9,36 @@ const getOriginalAndExtension = (x: string) => {
   return { url: url.toString(), extension };
 };
 
-browser.runtime.onMessage.addListener(async ({
-  image, screenName, id, srcUrl,
-}) => {
-  const tweet = document
-    .querySelector(`main [href*="${id}"]`)
-    ?.closest('article');
+chrome.runtime.onMessage.addListener(
+  async ({
+    image, screenName, id, srcUrl,
+  }) => {
+    const tweet = document.querySelector(`main [href*="${id}"]`)?.closest('article')
+      || document.querySelector('article');
 
-  if (!tweet) return;
+    if (!tweet) {
+      chrome.runtime.sendMessage({
+        type: 'error',
+        message:
+          'You need click the `...` in top right then click `View Tweet` before downloads.',
+      });
 
-  const filenamePartten = await getFilenamePattern();
-  const filename = new Filename(filenamePartten).getPatchedFilename({
-    tweet,
-    image,
-    screenName,
-    id,
-  });
+      return;
+    }
 
-  const { url, extension } = getOriginalAndExtension(srcUrl);
+    const filenamePartten = await getFilenamePattern();
+    const filename = new Filename(filenamePartten).getPatchedFilename({
+      tweet,
+      image,
+      screenName,
+      id,
+    });
 
-  browser.runtime.sendMessage({
-    url,
-    filename: `${filename}${extension}`,
-  });
-});
+    const { url, extension } = getOriginalAndExtension(srcUrl);
+
+    chrome.runtime.sendMessage({
+      type: 'download',
+      request: { url, filename: `${filename}${extension}` },
+    });
+  },
+);

@@ -7,9 +7,9 @@ const saveOptions = (e: Event) => {
 
   if (input.value === '') {
     input.value = DEFAULT_FILENAME;
-    browser.storage.sync.remove('filename');
+    chrome.storage.sync.remove('filename');
   } else {
-    browser.storage.sync.set({
+    chrome.storage.sync.set({
       filename: input.value,
     });
   }
