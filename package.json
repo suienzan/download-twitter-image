@@ -1,14 +1,18 @@
 {
   "name": "download-twitter-image",
   "displayName": "Download Twitter Image",
+  "geckoId": "download-twitter-image@suienzan",
   "version": "0.1.0",
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "manifest": "node --loader ts-node/esm src/manifest.ts",
-    "options": "cp src/options.html extension/options.html",
-    "dev": "chokidar 'src/*' -c 'rm -rf extension && pnpm run build' --initial",
-    "build": "tsup"
+    "manifest:firefox": "NODE_ENV=firefox node --loader ts-node/esm src/manifest.ts",
+    "manifest:chrome": "NODE_ENV=chrome node --loader ts-node/esm src/manifest.ts",
+    "dev:chrome": "chokidar 'src/*' -c 'rm -rf extension/chrome && pnpm run build:chrome' --initial",
+    "dev:firefox": "chokidar 'src/*' -c 'rm -rf extension/firefox && pnpm run build:firefox' --initial",
+    "build:firefox": "tsup --env.target=firefox",
+    "build:chrome": "tsup --env.target=chrome",
+    "pack:crx": "bash pack-crx.sh"
   },
   "dependencies": {
     "jsonfile": "^6.1.0"

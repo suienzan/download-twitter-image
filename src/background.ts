@@ -1,8 +1,5 @@
 import { name, displayName } from '../package.json';
 
-// eslint-disable-next-line no-console
-console.log(0);
-
 chrome.contextMenus.create({
   id: name,
   title: displayName,
