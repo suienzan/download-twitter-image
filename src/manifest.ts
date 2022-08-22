@@ -11,7 +11,6 @@ const { version, displayName, geckoId } = JSON.parse(json);
 const target = process.env.NODE_ENV;
 
 const permissions = [
-  'cookies',
   'downloads',
   'contextMenus',
   'notifications',
