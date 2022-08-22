@@ -2,14 +2,9 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig((options) => {
-  const { target } = options.env || {};
+  const target = options.env?.target;
 
   return {
-    // entry: [
-    //   `src/${target}/background.ts`,
-    //   `src/${target}/content-script.ts`,
-    //   'src/options.ts',
-    // ],
     entry: ['src/background.ts', 'src/content-script.ts', 'src/options.ts'],
     outDir: `extension/${target}`,
     clean: true,
