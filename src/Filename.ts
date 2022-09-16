@@ -4,6 +4,8 @@ const format = (filename: string): string => {
   return filename.replace(illegalCharacters, '_').replace(whitespace, ' ');
 };
 
+const formatBackslash = (x: string): string => x.replace('\\', '_');
+
 // eslint-disable-next-line import/prefer-default-export
 export class Filename {
   #filename: string;
@@ -22,19 +24,19 @@ export class Filename {
     const name = tweet.querySelector('[data-testid="User-Names"] > div:first-child')
       ?.textContent || '';
 
-    return new Filename(this.#filename.replace('{name}', name));
+    return new Filename(this.#filename.replace('{name}', formatBackslash(name)));
   }
 
   patchScreenName(screenName: string) {
     if (!this.#filename.includes('{screen_name}')) return this;
 
-    return new Filename(this.#filename.replace('{screen_name}', screenName));
+    return new Filename(this.#filename.replace('{screen_name}', formatBackslash(screenName)));
   }
 
   patchId(id: string) {
     if (!this.#filename.includes('{id}')) return this;
 
-    return new Filename(this.#filename.replace('{id}', id));
+    return new Filename(this.#filename.replace('{id}', formatBackslash(id)));
   }
 
   patchText(tweet: HTMLElement) {
@@ -50,7 +52,7 @@ export class Filename {
 
     const sliced = length > 0 ? formatedText.slice(0, Number(length)) : formatedText;
 
-    return new Filename(this.#filename.replace(match, sliced));
+    return new Filename(this.#filename.replace(match, formatBackslash(sliced)));
   }
 
   patchPage(tweet: HTMLElement, image: string) {
