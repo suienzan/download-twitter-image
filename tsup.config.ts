@@ -11,6 +11,10 @@ export default defineConfig((options) => {
     platform: 'browser',
     target: 'esnext',
     format: ['iife'],
-    onSuccess: `pnpm manifest:${target} && cp src/options.html extension/${target}/options.html`,
+    onSuccess: `${
+      target === 'firefox'
+        ? 'grep -rli "chrome." ./extension/firefox | xargs -i@  sed -i "s/chrome./browser./g" @ && '
+        : ''
+    } pnpm manifest:${target} && cp src/options.html extension/${target}/options.html`,
   };
 });
