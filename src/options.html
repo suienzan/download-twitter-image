@@ -5,30 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <style>
-    .flex {
-      display: flex;
-    }
-    .flex-grow {
-      flex-grow: 1;
-    }
-    .ml-2 {
-      margin-left: 0.5rem;
-    }
-    .p-4 {
-      padding: 1rem;
-    }
-    .items-center {
-      align-items: center;
-    }
-  </style>
   <body>
     <form>
-      <div class="chrome-style p-4 flex items-center">
-        <label for="filename">filename:</label>
-        <input id="filename" name="filename" class="flex-grow ml-2" value="" />
-        <button type="submit" class="ml-2">Save</button>
-      </div>
+      <label for="filename">filename:</label>
+      <input id="filename" name="filename" value="" size="50" />
+      <button type="submit">Save</button>
     </form>
     <div>
       <div>availiable variables</div>
