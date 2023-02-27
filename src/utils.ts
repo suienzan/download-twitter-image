@@ -1,4 +1,4 @@
-export const DEFAULT_FILENAME = 'twitter/{name} - {text[28]}{[ - ]page}';
+export const DEFAULT_FILENAME = 'twitter/{screen_name} - {id}{[ - ]text[28]}{[ - ]page}';
 
 export const getStorage = (
   key: string,
