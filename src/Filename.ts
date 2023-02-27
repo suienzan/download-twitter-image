@@ -64,11 +64,11 @@ export class Filename {
 
     const { length } = Array.from(imageElements);
 
-    const pageRegex = /.*({\[(.*)]page})/;
-    const [, pageString, prefix] = this.#filename.match(pageRegex) || [];
+    const pageRegex = /.*({(\[(.*)])?page})/;
+    const [, match, , prefix] = this.#filename.match(pageRegex) || [];
 
     const filename = this.#filename.replace(
-      pageString,
+      match,
       length === 1 ? '' : `${prefix}${page}`,
     );
 
