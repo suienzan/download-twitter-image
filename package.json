@@ -2,7 +2,7 @@
   "name": "download-twitter-image",
   "displayName": "Download Twitter Image",
   "geckoId": "download-twitter-image@suienzan",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "license": "MIT",
   "type": "module",
   "scripts": {
