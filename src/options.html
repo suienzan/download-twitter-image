@@ -37,12 +37,13 @@
         <li>{screen_name} : The one after '@' and in address bar.</li>
         <li>{id} : Tweet id.</li>
         <li>
-          {text[$number]} : Fisrt $number characters of tweet content. You will
-          get fisrt 28 characters with `{text[28]}`. USE `{text}` to get all.`
+          {[$textPrefix]text[$number]} : Fisrt $number characters of tweet. You
+          will get fisrt 28 characters with `{[ - ]text[28]}`. USE `{[ - ]text}`
+          to get all. Skip this section if no text content.
         </li>
         <li>
           {[$pagePrefix]page} : Page number with prefix. With `{[ - ]page}`, you
-          will get a ' - 1' if there are multiple images. And get nothing if
+          will get a ' - 1' if there are multiple images. Skip this section if
           there is only one image.
         </li>
       </ul>

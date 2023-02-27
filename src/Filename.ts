@@ -38,18 +38,20 @@ export class Filename {
   }
 
   patchText(tweet: HTMLElement) {
-    const matches = this.#filename.match(/{text(\[(\d+)])?}/);
+    const matches = this.#filename.match(/{(\[(.*)])?text(\[(\d+)])?}/);
     if (!matches) return this;
 
     const text = tweet?.querySelector('[data-testid="tweetText"] ')?.textContent || '';
 
-    const [match, , lengthString] = matches;
+    const [match, , prefix, , lengthString] = matches;
 
     const length = Number(lengthString);
 
     const sliced = length > 0 ? text.slice(0, Number(length)) : text;
 
-    return new Filename(this.#filename.replace(match, format(sliced)));
+    const textString = sliced.length === 0 ? '' : `${prefix}${format(sliced)}`;
+
+    return new Filename(this.#filename.replace(match, textString));
   }
 
   patchPage(tweet: HTMLElement, image: string) {
