@@ -17,8 +17,8 @@ const permissions = [
   'storage',
 ];
 const hostPermissions = [
-  'https://mobile.twitter.com/*',
-  'https://twitter.com/*',
+  'https://mobile.x.com/*',
+  'https://x.com/*',
 ];
 
 const basic = {

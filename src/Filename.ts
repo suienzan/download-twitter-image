@@ -55,7 +55,7 @@ export class Filename {
   }
 
   patchPage(tweet: HTMLElement, image: string) {
-    const imageRegex = /https:\/\/(mobile.)?twitter.com(\/.*\/photo\/)(\d)/;
+    const imageRegex = /https:\/\/(mobile.)?x.com(\/.*\/photo\/)(\d)/;
     const [, , postPath, page] = image.match(imageRegex) || [];
 
     if (!postPath || !page) return this;

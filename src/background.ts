@@ -4,8 +4,8 @@ chrome.contextMenus.create({
   id: name,
   title: displayName,
   documentUrlPatterns: [
-    'https://twitter.com/*',
-    'https://mobile.twitter.com/*',
+    'https://x.com/*',
+    'https://mobile.x.com/*',
   ],
   contexts: ['image'],
   targetUrlPatterns: ['https://pbs.twimg.com/media/*'],
@@ -15,7 +15,7 @@ chrome.contextMenus.onClicked.addListener(async (item, tab) => {
   const { srcUrl, linkUrl, pageUrl } = item;
   if (!(srcUrl && tab?.id)) return;
 
-  const regex = /https:\/\/(mobile.)?twitter.com\/(.*)\/status\/(\d*).*/;
+  const regex = /https:\/\/(mobile.)?x.com\/(.*)\/status\/(\d*).*/;
   const match = (linkUrl || pageUrl).match(regex);
   const [image, , screenName, id] = match || [];
 
