@@ -47,7 +47,7 @@ export class Filename {
 
     const length = Number(lengthString);
 
-    const sliced = length > 0 ? text.slice(0, Number(length)) : text;
+    const sliced = length > 0 ? [...text].slice(0, Number(length)).join('') : text;
 
     const textString = sliced.length === 0 ? '' : `${prefix}${format(sliced)}`;
 
