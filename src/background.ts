@@ -15,8 +15,11 @@ chrome.contextMenus.onClicked.addListener(async (item, tab) => {
   const { srcUrl, linkUrl, pageUrl } = item;
   if (!(srcUrl && tab?.id)) return;
 
+  const url = linkUrl || pageUrl;
+  if(!url) return;
+
   const regex = /https:\/\/(mobile.)?x.com\/(.*)\/status\/(\d*).*/;
-  const match = (linkUrl || pageUrl).match(regex);
+  const match = (url).match(regex);
   const [image, , screenName, id] = match || [];
 
   chrome.tabs.sendMessage(tab.id, {
