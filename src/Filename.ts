@@ -67,23 +67,15 @@ export default class Filename {
     return new Filename(this.#filename.replace(match, textString));
   }
 
-  patchPage(tweet: HTMLElement, image: string): Filename {
+  patchPage(image: string): Filename {
     const imageRegex = /https:\/\/(mobile.)?x.com(\/.*\/photo\/)(\d)/;
     const [, , postPath, page] = imageRegex.exec(image) ?? [];
-
     if (!postPath || !page) return this;
-
-    const imageElements = tweet.querySelectorAll(`[href^="${postPath}"]`);
-
-    const { length } = Array.from(imageElements);
 
     const pageRegex = /.*({(\[(.*)])?page})/;
     const [, match, , prefix] = pageRegex.exec(this.#filename) ?? [];
 
-    const filename = this.#filename.replace(
-      match,
-      length === 1 ? '' : `${prefix}${page}`,
-    );
+    const filename = this.#filename.replace(match, `${prefix}${page}`);
 
     return new Filename(filename);
   }
@@ -103,6 +95,6 @@ export default class Filename {
       .patchId(id)
       .patchScreenName(screenName)
       .patchText(tweet)
-      .patchPage(tweet, image).filename;
+      .patchPage(image).filename;
   }
 }
