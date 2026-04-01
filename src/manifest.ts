@@ -38,6 +38,10 @@ const firefox = {
   browser_specific_settings: {
     gecko: {
       id: geckoId,
+      data_collection_permissions: {
+        required: ['websiteContent'],
+        optional: [],
+      },
     },
   },
 };
