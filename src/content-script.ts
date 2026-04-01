@@ -26,8 +26,8 @@ chrome.runtime.onMessage.addListener(
       return;
     }
 
-    const filenamePartten = await getFilenamePattern();
-    const filename = new Filename(filenamePartten).getPatchedFilename({
+    const filenamePattern = await getFilenamePattern();
+    const filename = new Filename(filenamePattern).getPatchedFilename({
       tweet,
       image,
       screenName,

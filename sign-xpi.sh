@@ -29,7 +29,7 @@ if options=$(getopt -o hk:p:s: --long help,api-key:,api-proxy:,api-secret: -- "$
       ;;
     -s | --api-secret)
       shift
-      API_SERCET=$1
+      API_SECRET=$1
       ;;
     --)
       shift
@@ -40,7 +40,7 @@ if options=$(getopt -o hk:p:s: --long help,api-key:,api-proxy:,api-secret: -- "$
   done
 
   pnpm run build:firefox
-  web-ext sign -c web-ext-config.cjs -s extension/firefox -a dist/firefox --channel=unlisted --api-key="$API_KEY" --api-secret="$API_SERCET" --api-proxy="$API_PROXY"
+  web-ext sign -c web-ext-config.cjs -s extension/firefox -a dist/firefox --channel=unlisted --api-key="$API_KEY" --api-secret="$API_SECRET" --api-proxy="$API_PROXY"
   exit 0
 
 else
