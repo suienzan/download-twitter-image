@@ -1,4 +1,4 @@
-import { Filename } from './Filename';
+import Filename from './Filename';
 import { getFilenamePattern } from './utils';
 
 const getOriginalAndExtension = (x: string) => {
@@ -10,11 +10,10 @@ const getOriginalAndExtension = (x: string) => {
 };
 
 chrome.runtime.onMessage.addListener(
-  async ({
-    image, screenName, id, srcUrl,
-  }) => {
-    const tweet = document.querySelector(`main [href*="${id}"]`)?.closest('article')
-      || document.querySelector('article');
+  async ({ image, screenName, id, srcUrl }) => {
+    const tweet =
+      document.querySelector(`main [href*="${id}"]`)?.closest('article') ??
+      document.querySelector('article');
 
     if (!tweet) {
       chrome.runtime.sendMessage({

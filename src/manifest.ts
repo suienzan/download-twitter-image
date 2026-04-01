@@ -1,6 +1,7 @@
+import { readFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+
 import jsonfile from 'jsonfile';
-import { fileURLToPath } from 'url';
-import { readFile } from 'fs/promises';
 
 const json = (
   await readFile(new URL('../package.json', import.meta.url))
@@ -10,16 +11,8 @@ const { version, displayName, geckoId } = JSON.parse(json);
 
 const target = process.env.NODE_ENV;
 
-const permissions = [
-  'downloads',
-  'contextMenus',
-  'notifications',
-  'storage',
-];
-const hostPermissions = [
-  'https://mobile.x.com/*',
-  'https://x.com/*',
-];
+const permissions = ['downloads', 'contextMenus', 'notifications', 'storage'];
+const hostPermissions = ['https://mobile.x.com/*', 'https://x.com/*'];
 
 const basic = {
   name: displayName,
@@ -58,7 +51,8 @@ const chrome = {
   },
 };
 
-const manifest = target === 'firefox' ? { ...basic, ...firefox } : { ...basic, ...chrome };
+const manifest =
+  target === 'firefox' ? { ...basic, ...firefox } : { ...basic, ...chrome };
 
 const file = fileURLToPath(
   new URL(`../extension/${target}/manifest.json`, import.meta.url),

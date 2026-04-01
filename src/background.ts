@@ -1,12 +1,9 @@
-import { name, displayName } from '../package.json';
+import { displayName, name } from '../package.json';
 
 chrome.contextMenus.create({
   id: name,
   title: displayName,
-  documentUrlPatterns: [
-    'https://x.com/*',
-    'https://mobile.x.com/*',
-  ],
+  documentUrlPatterns: ['https://x.com/*', 'https://mobile.x.com/*'],
   contexts: ['image'],
   targetUrlPatterns: ['https://pbs.twimg.com/media/*'],
 });
@@ -15,12 +12,12 @@ chrome.contextMenus.onClicked.addListener(async (item, tab) => {
   const { srcUrl, linkUrl, pageUrl } = item;
   if (!(srcUrl && tab?.id)) return;
 
-  const url = linkUrl || pageUrl;
-  if(!url) return;
+  const url = linkUrl ?? pageUrl;
+  if (!url) return;
 
   const regex = /https:\/\/(mobile.)?x.com\/(.*)\/status\/(\d*).*/;
-  const match = (url).match(regex);
-  const [image, , screenName, id] = match || [];
+  const match = url.match(regex);
+  const [image, , screenName, id] = match ?? [];
 
   chrome.tabs.sendMessage(tab.id, {
     image,

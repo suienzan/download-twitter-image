@@ -1,12 +1,18 @@
-export const DEFAULT_FILENAME = 'twitter/{screen_name} - {id}{[ - ]text[28]}{[ - ]page}';
+export const DEFAULT_FILENAME =
+  'twitter/{screen_name} - {id}{[ - ]text[28]}{[ - ]page}';
 
-export const getStorage = (
+export const getStorage = async (
   key: string,
-  defaultValue: string = '',
-): Promise<string> => new Promise((resolve) => {
-  chrome.storage.sync.get(key, (items) => {
-    resolve(items[key] || defaultValue);
+  defaultValue = '',
+): Promise<string> =>
+  new Promise((resolve) => {
+    chrome.storage.sync.get(
+      key,
+      (items: Record<string, string | undefined>) => {
+        resolve(items[key] ?? defaultValue);
+      },
+    );
   });
-});
 
-export const getFilenamePattern = () => getStorage('filename', DEFAULT_FILENAME);
+export const getFilenamePattern = async (): Promise<string> =>
+  getStorage('filename', DEFAULT_FILENAME);
