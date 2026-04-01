@@ -15,22 +15,23 @@
     "pack:crx": "bash pack-crx.sh"
   },
   "dependencies": {
-    "jsonfile": "^6.1.0"
+    "jsonfile": "^6.2.0"
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.323",
+    "@eslint/compat": "^2.0.3",
+    "@eslint/js": "^10.0.1",
+    "@types/chrome": "^0.1.38",
     "@types/jsonfile": "^6.1.4",
-    "@types/node": "^22.15.21",
-    "@typescript-eslint/eslint-plugin": "^8.32.1",
-    "@typescript-eslint/parser": "^8.32.1",
+    "@types/node": "^25.5.0",
     "chokidar-cli": "^3.0.0",
     "crx": "^5.0.1",
-    "eslint": "^9.27.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.31.0",
-    "prettier": "^3.5.3",
+    "eslint": "^10.1.0",
+    "eslint-config-airbnb-extended": "^3.0.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "prettier": "^3.8.1",
     "ts-node": "^10.9.2",
-    "tsup": "^8.5.0",
-    "typescript": "^5.8.3"
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.2"
   }
 }
