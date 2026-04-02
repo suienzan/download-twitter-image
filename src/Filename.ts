@@ -40,13 +40,13 @@ export default class Filename {
   }
 
   patchText(tweet: HTMLElement): Filename {
-    const matches = /{(\[(.*)])?text(\[(\d+)])?}/.exec(this.#filename);
+    const matches = /{(?:\[([^\]]*)])?text(?:\[(\d+)])?}/.exec(this.#filename);
     if (!matches) return this;
 
     const text =
       tweet?.querySelector('[data-testid="tweetText"] ')?.textContent ?? '';
 
-    const [match, , prefix, , lengthString] = matches;
+    const [match, prefix, lengthString] = matches;
 
     const length = Number(lengthString);
 
@@ -68,12 +68,13 @@ export default class Filename {
   }
 
   patchPage(image: string): Filename {
-    const imageRegex = /https:\/\/(mobile.)?x.com(\/.*\/photo\/)(\d)/;
-    const [, , postPath, page] = imageRegex.exec(image) ?? [];
+    const imageRegex = /https:\/\/(?:mobile\.)?x.com(\/.*\/photo\/)(\d)/;
+    const [, postPath, page] = imageRegex.exec(image) ?? [];
     if (!postPath || !page) return this;
 
-    const pageRegex = /.*({(\[(.*)])?page})/;
-    const [, match, , prefix] = pageRegex.exec(this.#filename) ?? [];
+    const pageRegex = /{(?:\[([^\]]*)])?page}/;
+    const [match, prefix] = pageRegex.exec(this.#filename) ?? [];
+    if (!match) return this;
 
     const filename = this.#filename.replace(match, `${prefix}${page}`);
 
