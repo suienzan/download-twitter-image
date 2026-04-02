@@ -1,10 +1,3 @@
-/**
- * THIS FILE WAS AUTO-GENERATED.
- * PLEASE DO NOT EDIT IT MANUALLY.
- * ===============================
- * IF YOU COPY THIS INTO AN ESLINT CONFIG, REMOVE THIS COMMENT BLOCK.
- */
-
 import path from 'node:path';
 
 import { includeIgnoreFile } from '@eslint/compat';
@@ -37,6 +30,18 @@ const nodeConfig = defineConfig([
   plugins.node,
   // Airbnb Node recommended config
   ...configs.node.recommended,
+  {
+    name: 'node/custom-rules',
+    rules: {
+      'n/no-unsupported-features/node-builtins': [
+        'error',
+        {
+          version: '>=25.0.0',
+          ignores: [],
+        },
+      ],
+    },
+  },
 ]);
 
 const typescriptConfig = defineConfig([
