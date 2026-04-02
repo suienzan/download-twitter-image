@@ -53,7 +53,7 @@ export default class Filename {
     const sliced =
       length > 0
         ? [
-            ...new Intl.Segmenter(undefined, {
+            ...new Intl.Segmenter(window.navigator.language, {
               granularity: 'grapheme',
             }).segment(text),
           ]
