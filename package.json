@@ -6,32 +6,32 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "manifest:firefox": "NODE_ENV=firefox node --loader ts-node/esm src/manifest.ts",
-    "manifest:chrome": "NODE_ENV=chrome node --loader ts-node/esm src/manifest.ts",
+    "build:chrome": "tsup --env.target=chrome",
+    "build:firefox": "tsup --env.target=firefox",
     "dev:chrome": "chokidar 'src/*' -c 'rm -rf extension/chrome && pnpm run build:chrome' --initial",
     "dev:firefox": "chokidar 'src/*' -c 'rm -rf extension/firefox && pnpm run build:firefox' --initial",
-    "build:firefox": "tsup --env.target=firefox",
-    "build:chrome": "tsup --env.target=chrome",
+    "manifest:chrome": "NODE_ENV=chrome tsx src/manifest.ts",
+    "manifest:firefox": "NODE_ENV=firefox tsx src/manifest.ts",
     "pack:crx": "bash pack-crx.sh"
   },
   "dependencies": {
-    "jsonfile": "^6.2.0"
+    "jsonfile": "^6.2.1"
   },
   "devDependencies": {
-    "@eslint/compat": "^2.0.3",
+    "@eslint/compat": "^2.1.1",
     "@eslint/js": "^10.0.1",
-    "@types/chrome": "^0.1.38",
+    "@types/chrome": "^0.2.9",
     "@types/jsonfile": "^6.1.4",
-    "@types/node": "^25.5.0",
+    "@types/node": "^26.4.1",
     "chokidar-cli": "^3.0.0",
     "crx3": "^2.0.0",
-    "eslint": "^10.1.0",
-    "eslint-config-airbnb-extended": "^3.0.1",
+    "eslint": "^10.10.0",
+    "eslint-config-airbnb-extended": "^3.2.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.5",
-    "prettier": "^3.8.1",
-    "ts-node": "^10.9.2",
+    "eslint-plugin-prettier": "^5.5.6",
+    "prettier": "^3.9.6",
     "tsup": "^8.5.1",
-    "typescript": "^6.0.2"
+    "tsx": "^4.23.13",
+    "typescript": "^6.0.3"
   }
 }

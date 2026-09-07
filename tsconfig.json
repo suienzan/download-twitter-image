@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
+    "types": ["chrome"],
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noUnusedLocals": true,
     "skipLibCheck": true,
     "sourceMap": true,
