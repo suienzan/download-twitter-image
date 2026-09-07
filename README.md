@@ -1,6 +1,6 @@
 # Download Twitter Image
 
-A simple twitter image downloader extension for Chrome.
+A simple twitter image downloader extension.
 
 ## License
 
