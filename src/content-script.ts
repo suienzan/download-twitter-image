@@ -73,8 +73,6 @@ chrome.runtime.onMessage.addListener(
       if (!confirmed) return;
     }
 
-    rememberDownload(history);
-
     const filenamePattern = await getFilenamePattern();
     const filename = new Filename(filenamePattern).getPatchedFilename({
       tweet,
@@ -85,9 +83,17 @@ chrome.runtime.onMessage.addListener(
 
     const { url, extension } = getOriginalAndExtension(srcUrl);
 
-    chrome.runtime.sendMessage({
-      type: 'download',
-      request: { url, filename: `${filename}${extension}` },
-    });
+    try {
+      const result = await chrome.runtime.sendMessage({
+        type: 'download',
+        request: { url, filename: `${filename}${extension}` },
+      });
+
+      if (result?.success) {
+        rememberDownload(history);
+      }
+    } catch {
+      // Download errors will be handled by the background script.
+    }
   },
 );
