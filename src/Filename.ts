@@ -1,7 +1,12 @@
 const format = (filename: string): string => {
   const illegalCharacters = /[/:*?"<>|]/g;
+  const invisibleCharacters = /[\u200B-\u200D\u2060\uFEFF]/g;
   const whitespace = /\s+/g;
-  return filename.replace(illegalCharacters, ' ').replace(whitespace, ' ');
+
+  return filename
+    .replace(illegalCharacters, ' ')
+    .replace(invisibleCharacters, '')
+    .replace(whitespace, ' ');
 };
 
 export default class Filename {
