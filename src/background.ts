@@ -29,7 +29,7 @@ chrome.contextMenus.onClicked.addListener(async (item, tab) => {
   });
 });
 
-const showNotification = (message: string) => {
+const showNotification = async (message: string) =>
   chrome.notifications.create({
     type: 'basic',
     title: `ERROR in ${displayName}`,
@@ -37,20 +37,11 @@ const showNotification = (message: string) => {
     iconUrl:
       'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
   });
-};
 
-chrome.runtime.onMessage.addListener(({ type, request, message }) => {
-  switch (type) {
-    case 'error':
-      showNotification(message);
-      break;
-    case 'download':
-      chrome.downloads.download(request).catch((err) => {
-        showNotification(err.message);
-      });
-      break;
-    default:
-      showNotification('Unknown error.');
-      break;
-  }
-});
+chrome.runtime.onMessage.addListener(async ({ type, request, message }) =>
+  type === 'error'
+    ? showNotification(message)
+    : chrome.downloads
+        .download(request)
+        .catch(async (err) => showNotification(err.message)),
+);

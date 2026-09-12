@@ -83,17 +83,11 @@ chrome.runtime.onMessage.addListener(
 
     const { url, extension } = getOriginalAndExtension(srcUrl);
 
-    try {
-      const result = await chrome.runtime.sendMessage({
+    chrome.runtime
+      .sendMessage({
         type: 'download',
         request: { url, filename: `${filename}${extension}` },
-      });
-
-      if (result?.success) {
-        rememberDownload(history);
-      }
-    } catch {
-      // Download errors will be handled by the background script.
-    }
+      })
+      .then(() => rememberDownload(history));
   },
 );
